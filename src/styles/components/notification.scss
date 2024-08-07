@@ -1,0 +1,55 @@
+@import "~bootstrap/scss/bootstrap";
+@import "../abstracts/colors";
+
+
+body {
+  font-family: $font-family-text;
+  font-size: $font-size-default;
+  font-weight: 500;
+  background-color: hsl(210, 60%, 98%);
+
+  @include phone {
+    color: red;
+  }
+  
+}
+
+.layout-helper {
+  display: flex;
+  background-color: hsl(0, 0%, 100%);
+  margin: 10px;
+  padding: 5px;
+}
+
+.Contenedor {
+  margin-top: 20px;
+  padding: 12px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: (rgba(15, 215, 61, 0.1)) 0px 3px 8px;
+  }
+
+.Message{
+  display: flex;
+  margin-left: 8px;
+}
+
+.Imagenes{
+  margin-right: 8px;
+}
+
+a{
+  color: black;
+  text-decoration: none;
+  margin: 3px;
+  font-weight: bold;
+}
+
+a:hover{
+  color:hsl(219, 85%, 26%);
+}
+
+
+p {
+  color: gray;
+}
