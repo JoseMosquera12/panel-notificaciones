@@ -1,4 +1,6 @@
 import { Grid } from "@mui/material";
+import { Notification } from "../components/Notification";
+import { useState } from "react";
 
 import webber from "../assets/images/avatar-mark-webber.webp";
 import gray from "../assets/images/avatar-angela-gray.webp";
@@ -8,8 +10,6 @@ import kimberly from "../assets/images/avatar-kimberly-smith.webp";
 import natham from "../assets/images/avatar-nathan-peterson.webp";
 import anna from "../assets/images/avatar-anna-kim.webp";
 
-import { Notification } from "../components/Notification";
-import { useState } from "react";
 
 const mockNotifications = [
   {
@@ -74,9 +74,10 @@ const mockNotifications = [
     name: " Nathan Peterson ",
     action: "react",
     target: {
-      type: "post",
-      content:
-        "reacted to your recent post 5 end-game strategies to increase your win rate",
+      type: "message",
+      content: "reacted to your recent post",
+      post: " 5 end-game strategies to increase your win rate",
+      message: "Hello, thanks for setting up the Chess Club, I've been a member for a few weeks now and I'm already having lots of fun and improving my game",
     },
     isRead: true,
     date: "2 weeks ago",
@@ -98,14 +99,19 @@ const mockNotifications = [
 
 
 const NotificationsPanel = () => {
+
   const [countNotifications, setCountNotifications] = useState(4)
   const [isRead, setIsRead] = useState(false)
 
   const handlePostClick = (event) => {
     const post = event.currentTarget; 
-    const status = event.querySelector('.status');
-    status.classList.remove('is-read'); // verificar o acomodar is-read o not-read
+    
+    const status = post.querySelector('.status');
+
+    status.classList.remove('not-read');
+
     setCountNotifications((prevNotification) => Math.max(0, prevNotification - 1));
+
     if (countNotifications === 1){
       setIsRead(true);
     }
@@ -115,17 +121,21 @@ const NotificationsPanel = () => {
     setCountNotifications(0)
     setIsRead(true)
   } 
+
   return (
     <>  
-        <div className="notificacion">
+  <div className="notificacion">
     <h3 className="title"> Notifications <span className="number"> {countNotifications} </span> </h3>
     <p className={`mark ${!isRead ? 'markAllRead' : ''}`} onClick={handleMarkAllRead} >  Marcar todo como leido</p>
   </div>
   
     <Grid container direction={"column"}>
       {mockNotifications.map((notification) => (
-        <Grid item>
-          <Notification notification={notification} />
+          <Grid className="post" onClick={handlePostClick}>  
+        <Grid item >
+          <Notification notification={notification}/>
+          { notification.isRead == false ? <span className={ `status ${isRead ? '' : 'not-read'}`}> </span> : ''}
+        </Grid>
         </Grid>
       ))}
     </Grid>
